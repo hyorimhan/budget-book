@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
 
 const Container = styled.div`
   max-width: 800px;
@@ -17,25 +18,25 @@ const Container2 = styled.section`
   background-color: rgb(255, 255, 255);
 `;
 
-// const Box = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: flex-start;
+const Box = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 
-//   padding: 20px 0;
-// `;
+  padding: 20px 0;
+`;
 
-// const Input = styled.input`
-//   display: flex;
-//   border: 1px solid rgb(221, 221, 221);
-//   border-radius: 4px;
-//   width: 770px;
-//   height: 38px;
+const Input = styled.input`
+  display: flex;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 4px;
+  width: 770px;
+  height: 38px;
 
-//   margin: 0 auto;
+  margin: 0 auto;
 
-//   justify-content: center;
-// `;
+  justify-content: center;
+`;
 
 const BtnBox = styled.div`
   display: flex;
@@ -50,7 +51,7 @@ const BtnBox = styled.div`
   gap: 10px;
 `;
 
-const SaveBtn = styled.button`
+const EditBtn = styled.button`
   display: flex;
   /* flex-direction: row; */
   justify-content: center;
@@ -91,23 +92,73 @@ const BackBtn = styled.button`
   color: rgb(255, 255, 255);
 `;
 
-const DetailPage = ({ itemList }) => {
+const DetailPage = ({ itemList, setItemList }) => {
   const { detailId } = useParams();
+  const navigate = useNavigate();
 
   const filterId = itemList.find((item) => {
     return item.id === detailId;
   });
-  console.log(filterId);
+
+  const [dateValue, setDateValue] = useState(filterId.date);
+  const [itemValue, setItemValue] = useState(filterId.item);
+  const [amountValue, setAmountValue] = useState(filterId.amount);
+  const [descriptionValue, setDescriptionValue] = useState(
+    filterId.description
+  );
+
+  function inputDatefunc(e) {
+    setDateValue(e.target.value);
+  }
+
+  function inputItemfunc(e) {
+    setItemValue(e.target.value);
+  }
+
+  function inputAmountfunc(e) {
+    setAmountValue(e.target.value);
+  }
+
+  function inputDescriptionfunc(e) {
+    setDescriptionValue(e.target.value);
+  }
+
+  function editClickBtn() {
+    const editInput = {
+      date: dateValue,
+      item: itemValue,
+      amount: amountValue,
+      description: descriptionValue,
+      id: detailId,
+    };
+
+    setItemList((prev) =>
+      prev.map((item) => (item.id === detailId ? editInput : item))
+    );
+    navigate('/');
+  }
+  function delClickBtn() {
+    if (confirm('이 값을 삭제하시겠습니까?')) {
+      const delFilter = itemList.filter((item) => {
+        return item.id !== detailId;
+      });
+      setItemList(delFilter);
+      navigate('/');
+    }
+  }
+  function backClickBtn() {
+    navigate('/');
+  }
   return (
     <Container>
       <Container2>
-        {/* <Box>
+        <Box>
           <label htmlFor="date">날짜</label>
           <Input
             type="date"
             id="date"
-            // onChange={inputDatefunc}
-            // value={dateValue}
+            onChange={inputDatefunc}
+            value={dateValue}
           />
         </Box>
         <Box>
@@ -116,8 +167,8 @@ const DetailPage = ({ itemList }) => {
             type="text"
             id="item"
             placeholder="항목"
-            // onChange={inputDatefunc}
-            // value={dateValue}
+            onChange={inputItemfunc}
+            value={itemValue}
           />
         </Box>
         <Box>
@@ -126,8 +177,8 @@ const DetailPage = ({ itemList }) => {
             type="number"
             id="amount"
             placeholder="금액"
-            // onChange={inputDatefunc}
-            // value={dateValue}
+            onChange={inputAmountfunc}
+            value={amountValue}
           />
         </Box>
         <Box>
@@ -136,15 +187,15 @@ const DetailPage = ({ itemList }) => {
             type="text"
             id="description"
             placeholder="지출 내용"
-            // onChange={inputDatefunc}
-            // value={dateValue}
+            onChange={inputDescriptionfunc}
+            value={descriptionValue}
           />
-        </Box> */}
+        </Box>
 
         <BtnBox>
-          <DelBtn>삭제</DelBtn>
-          <SaveBtn>등록</SaveBtn>
-          <BackBtn>뒤로 가기</BackBtn>
+          <EditBtn onClick={editClickBtn}>수정</EditBtn>
+          <DelBtn onClick={delClickBtn}>삭제</DelBtn>
+          <BackBtn onClick={backClickBtn}>뒤로 가기</BackBtn>
         </BtnBox>
       </Container2>
     </Container>

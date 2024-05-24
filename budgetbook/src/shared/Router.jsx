@@ -6,7 +6,7 @@ import Detail from '../pages/Detail';
 const Router = () => {
   const [saveMonth, setSaveMonth] = useState(5);
   const [itemList, setItemList] = useState([]);
-  console.log(itemList);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -23,7 +23,7 @@ const Router = () => {
         />
         <Route
           path="/detail/:detailId"
-          element={<Detail itemList={itemList} />}
+          element={<Detail itemList={itemList} setItemList={setItemList} />}
         />
       </Routes>
     </BrowserRouter>
