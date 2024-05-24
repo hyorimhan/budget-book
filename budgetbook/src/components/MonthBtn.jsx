@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -22,6 +22,7 @@ const Box2 = styled.div`
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
+  padding: 20px;
 `;
 const Button = styled.button`
   display: flex;
@@ -38,19 +39,15 @@ const Button = styled.button`
   align-items: center;
 `;
 
-const Box3 = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 10px;
-`;
+// 달 클릭 버튼
 const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-const Month = () => {
-  let [SaveMonth, setMonth] = useState('');
+const MonthBtn = ({ MonthSaveFunc }) => {
+  // function MonthSaveFunc(month) {
+  //   setSaveMonth(month);
+  //   localStorage.setItem('month', month);
+  // }
 
-  function MonthSaveFunc(month) {
-    setMonth(month);
-  }
   return (
     <Container>
       <Container2>
@@ -69,11 +66,8 @@ const Month = () => {
           })}
         </Box2>
       </Container2>
-      <Container2>
-        <Box3>{SaveMonth}월 총 지출:</Box3>
-      </Container2>
     </Container>
   );
 };
 
-export default Month;
+export default MonthBtn;

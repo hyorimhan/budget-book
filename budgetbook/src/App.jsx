@@ -1,14 +1,13 @@
 import GlobalStyles from './GlobalStyles';
-import InputForm from './InputForm';
-import Month from './Month';
+
+import Router from './shared/Router';
 // import datas from './fakeData.json';
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <InputForm />
-      <Month />
+      <Router />
     </>
   );
 }

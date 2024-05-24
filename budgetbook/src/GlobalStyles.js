@@ -8,4 +8,6 @@ const GlobalStyles = createGlobalStyle`
   padding: 2rem;
   }
 `;
+
+
 export default GlobalStyles;
