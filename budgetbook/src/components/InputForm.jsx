@@ -47,6 +47,7 @@ const SaveBtn = styled.button`
   height: 30px;
   border: none;
   border-radius: 4px;
+  cursor: pointer;
 `;
 
 const Input = styled.input`

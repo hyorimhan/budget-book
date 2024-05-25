@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 const Container = styled.div`
   max-width: 800px;
   margin: 0 auto;
-  /* padding: 1rem; */
 
   display: flex;
   flex-direction: column;
@@ -20,22 +19,30 @@ const Container2 = styled.section`
 `;
 
 const Box = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   background-color: rgb(233, 236, 239);
-  margin: 20px;
+
   font-size: 18px;
   border-radius: 16px;
   height: 65px;
+  padding: 20px;
+  margin-top: 10px;
 `;
 
 const Box2 = styled.div`
-  padding: 10px;
+  display: flex;
+  justify-content: space-between;
 `;
 
-const Box3 = styled.div`
+const Span = styled.span`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 10px;
+  color: black;
 `;
+
 // 인풋값 가져와서 맞는 달에 뿌리기
 
 const InputList = ({ itemList, saveMonth }) => {
@@ -43,21 +50,26 @@ const InputList = ({ itemList, saveMonth }) => {
     const date = parseInt(item.date.slice(6, 7));
     return date === saveMonth;
   });
-  // const navigate = useNavigate();
 
   return (
     <Container>
       <Container2>
         {filterList.map((item) => {
           return (
-            <Link to={`/detail/${item.id}`} key={item.id}>
+            <Link
+              to={`/detail/${item.id}`}
+              style={{ textDecoration: 'none' }}
+              key={item.id}
+            >
               <Box>
                 <Box2>
-                  {item.date} {item.item}
+                  <Span>{item.date}</Span>
+                  <Span>항목: {item.item}</Span>
                 </Box2>
-                <Box3>
-                  {item.description} {item.amount}원
-                </Box3>
+                <Box2>
+                  <Span>내용: {item.description}</Span>
+                  <Span>금액: {item.amount}원</Span>
+                </Box2>
               </Box>
             </Link>
           );

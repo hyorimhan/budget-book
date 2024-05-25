@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -37,17 +37,14 @@ const Button = styled.button`
   border-radius: 10px;
   justify-content: center;
   align-items: center;
+
+  cursor: pointer;
 `;
 
 // 달 클릭 버튼
 const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 const MonthBtn = ({ MonthSaveFunc }) => {
-  // function MonthSaveFunc(month) {
-  //   setSaveMonth(month);
-  //   localStorage.setItem('month', month);
-  // }
-
   return (
     <Container>
       <Container2>

@@ -4,7 +4,17 @@ import Home from '../pages/Home';
 import Detail from '../pages/Detail';
 
 const Router = () => {
-  const [saveMonth, setSaveMonth] = useState(5);
+  const MonthSaveFunc = (month) => {
+    setSaveMonth(month);
+    localStorage.setItem('month', month);
+  };
+
+  function lastMonth() {
+    let last = localStorage.getItem('month');
+    return last ? Number(last) : 5;
+  }
+  const [saveMonth, setSaveMonth] = useState(lastMonth);
+
   const [itemList, setItemList] = useState([]);
 
   return (
@@ -18,6 +28,7 @@ const Router = () => {
               setSaveMonth={setSaveMonth}
               itemList={itemList}
               setItemList={setItemList}
+              MonthSaveFunc={MonthSaveFunc}
             />
           }
         />

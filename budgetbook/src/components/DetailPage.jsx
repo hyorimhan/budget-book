@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
+// import { useState } from 'react';
+import { useRef } from 'react';
 
 const Container = styled.div`
   max-width: 800px;
@@ -94,41 +95,25 @@ const BackBtn = styled.button`
 
 const DetailPage = ({ itemList, setItemList }) => {
   const { detailId } = useParams();
+
+  const dateRef = useRef(null);
+  const itemRef = useRef(null);
+  const amountRef = useRef(null);
+  const descriptionRef = useRef(null);
+
+  console.log(dateRef);
   const navigate = useNavigate();
 
   const filterId = itemList.find((item) => {
     return item.id === detailId;
   });
 
-  const [dateValue, setDateValue] = useState(filterId.date);
-  const [itemValue, setItemValue] = useState(filterId.item);
-  const [amountValue, setAmountValue] = useState(filterId.amount);
-  const [descriptionValue, setDescriptionValue] = useState(
-    filterId.description
-  );
-
-  function inputDatefunc(e) {
-    setDateValue(e.target.value);
-  }
-
-  function inputItemfunc(e) {
-    setItemValue(e.target.value);
-  }
-
-  function inputAmountfunc(e) {
-    setAmountValue(e.target.value);
-  }
-
-  function inputDescriptionfunc(e) {
-    setDescriptionValue(e.target.value);
-  }
-
   function editClickBtn() {
     const editInput = {
-      date: dateValue,
-      item: itemValue,
-      amount: amountValue,
-      description: descriptionValue,
+      date: dateRef.current.value,
+      item: itemRef.current.value,
+      amount: amountRef.current.value,
+      description: descriptionRef.current.value,
       id: detailId,
     };
 
@@ -157,8 +142,8 @@ const DetailPage = ({ itemList, setItemList }) => {
           <Input
             type="date"
             id="date"
-            onChange={inputDatefunc}
-            value={dateValue}
+            defaultValue={filterId.date}
+            ref={dateRef}
           />
         </Box>
         <Box>
@@ -167,8 +152,8 @@ const DetailPage = ({ itemList, setItemList }) => {
             type="text"
             id="item"
             placeholder="항목"
-            onChange={inputItemfunc}
-            value={itemValue}
+            defaultValue={filterId.item}
+            ref={itemRef}
           />
         </Box>
         <Box>
@@ -177,8 +162,8 @@ const DetailPage = ({ itemList, setItemList }) => {
             type="number"
             id="amount"
             placeholder="금액"
-            onChange={inputAmountfunc}
-            value={amountValue}
+            defaultValue={filterId.amount}
+            ref={amountRef}
           />
         </Box>
         <Box>
@@ -187,8 +172,9 @@ const DetailPage = ({ itemList, setItemList }) => {
             type="text"
             id="description"
             placeholder="지출 내용"
-            onChange={inputDescriptionfunc}
-            value={descriptionValue}
+            defaultValue={filterId.description}
+            ref={descriptionRef}
+            // value={descriptionValue}
           />
         </Box>
 

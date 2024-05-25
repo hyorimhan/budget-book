@@ -23,14 +23,17 @@ const Box = styled.div`
   justify-content: center;
   margin: 10px;
 `;
+const Span = styled.span`
+  margin: 1px;
+`;
 // 누적 값 합계 표시
 const SumValue = ({ saveMonth }) => {
   return (
     <Container>
       <Container2>
         <Box>
-          <span>{saveMonth}월</span>
-          <span>총 지출:</span>
+          <Span>{saveMonth}</Span>
+          <Span>월 총 지출:</Span>
         </Box>
       </Container2>
     </Container>
