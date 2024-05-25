@@ -1,7 +1,7 @@
 // import { useState } from 'react';
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { FamilyContext } from '../context/FamilyContext';
+import { BudgetContext } from '../context/BudgetContext';
 
 const Container = styled.div`
   max-width: 800px;
@@ -47,7 +47,7 @@ const Button = styled.button`
 const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 const MonthBtn = () => {
-  const { MonthSaveFunc } = useContext(FamilyContext);
+  const { MonthSaveFunc } = useContext(BudgetContext);
   return (
     <Container>
       <Container2>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home';
 import Detail from '../pages/Detail';
-import { FamilyContext } from '../context/FamilyContext';
+import { BudgetContext } from '../context/BudgetContext';
 
 const Router = () => {
   const MonthSaveFunc = (month) => {
@@ -18,7 +18,7 @@ const Router = () => {
   const [itemList, setItemList] = useState([]);
 
   return (
-    <FamilyContext.Provider
+    <BudgetContext.Provider
       value={{
         saveMonth,
         setSaveMonth,
@@ -33,7 +33,7 @@ const Router = () => {
           <Route path="/detail/:detailId" element={<Detail />} />
         </Routes>
       </BrowserRouter>
-    </FamilyContext.Provider>
+    </BudgetContext.Provider>
   );
 };
 export default Router;

@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
-import { FamilyContext } from '../context/FamilyContext';
+import { BudgetContext } from '../context/BudgetContext';
 
 const Container = styled.div`
   max-width: 800px;
@@ -64,7 +64,7 @@ const Input = styled.input`
 // 인풋 입력값 저장
 
 const InputForm = () => {
-  const { setItemList, MonthSaveFunc } = useContext(FamilyContext);
+  const { setItemList, MonthSaveFunc } = useContext(BudgetContext);
 
   const [dateValue, setDateValue] = useState('');
   const [itemValue, setItemValue] = useState('');
