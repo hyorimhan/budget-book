@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { FamilyContext } from '../context/FamilyContext';
 
 const Container = styled.div`
   max-width: 800px;
@@ -45,7 +47,9 @@ const Span = styled.span`
 
 // 인풋값 가져와서 맞는 달에 뿌리기
 
-const InputList = ({ itemList, saveMonth }) => {
+const InputList = () => {
+  const { itemList, saveMonth } = useContext(FamilyContext);
+
   const filterList = itemList.filter((item) => {
     const date = parseInt(item.date.slice(6, 7));
     return date === saveMonth;

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 // import { useState } from 'react';
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
+import { FamilyContext } from '../context/FamilyContext';
 
 const Container = styled.div`
   max-width: 800px;
@@ -93,7 +94,8 @@ const BackBtn = styled.button`
   color: rgb(255, 255, 255);
 `;
 
-const DetailPage = ({ itemList, setItemList }) => {
+const DetailPage = () => {
+  const { itemList, setItemList } = useContext(FamilyContext);
   const { detailId } = useParams();
 
   const dateRef = useRef(null);

@@ -1,5 +1,7 @@
 // import { useEffect } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
+import { FamilyContext } from '../context/FamilyContext';
 
 const Container = styled.div`
   max-width: 800px;
@@ -27,7 +29,8 @@ const Span = styled.span`
   margin: 1px;
 `;
 // 누적 값 합계 표시
-const SumValue = ({ saveMonth }) => {
+const SumValue = () => {
+  const { saveMonth } = useContext(FamilyContext);
   return (
     <Container>
       <Container2>

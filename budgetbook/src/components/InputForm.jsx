@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import { useContext, useState } from 'react';
+import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
+import { FamilyContext } from '../context/FamilyContext';
 
 const Container = styled.div`
   max-width: 800px;
@@ -62,7 +63,9 @@ const Input = styled.input`
 `;
 // 인풋 입력값 저장
 
-const InputForm = ({ setItemList, MonthSaveFunc }) => {
+const InputForm = () => {
+  const { setItemList, MonthSaveFunc } = useContext(FamilyContext);
+
   const [dateValue, setDateValue] = useState('');
   const [itemValue, setItemValue] = useState('');
   const [amountValue, setAmountValue] = useState('');
