@@ -1,7 +1,8 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
-import { FamilyContext } from '../context/FamilyContext';
+import { setSaveMonth, setItemList } from '../store/slices/budgetSlice';
 
 const Container = styled.div`
   max-width: 800px;
@@ -22,33 +23,28 @@ const Container2 = styled.section`
 const Form = styled.form`
   display: flex;
   justify-content: space-evenly;
-  align-items: center;
+  /* align-items: center; */
 `;
 
 const Box = styled.div`
   display: flex;
   flex-direction: column;
   margin: 5px;
-  padding: 20px 0;
-`;
-
-const Box2 = styled.div`
-  display: flex;
-
-  margin: 5px;
+  justify-content: flex-end;
   padding: 20px 0;
 `;
 
 const SaveBtn = styled.button`
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-
-  height: 30px;
+  padding: 8px 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  justify-self: flex-end;
+  align-self: flex-end;
+  &:hover {
+    background-color: #2ec4b6;
+    color: rgb(255, 255, 255);
+  }
 `;
 
 const Input = styled.input`
@@ -64,7 +60,8 @@ const Input = styled.input`
 // 인풋 입력값 저장
 
 const InputForm = () => {
-  const { setItemList, MonthSaveFunc } = useContext(FamilyContext);
+  const dispatch = useDispatch();
+  const itemList = useSelector((state) => state.budget.itemList);
 
   const [dateValue, setDateValue] = useState('');
   const [itemValue, setItemValue] = useState('');
@@ -96,10 +93,11 @@ const InputForm = () => {
     };
 
     const date = parseInt(newItem.date.slice(6, 7));
-    MonthSaveFunc(date);
+
+    dispatch(setSaveMonth(date));
 
     if (dateValue && itemValue && amountValue && descriptionValue !== '') {
-      setItemList((prev) => [...prev, newItem]);
+      dispatch(setItemList([...itemList, newItem]));
       setDateValue('');
       setItemValue('');
       setAmountValue('');
@@ -153,9 +151,9 @@ const InputForm = () => {
                 value={descriptionValue}
               />
             </Box>
-            <Box2>
+            <Box>
               <SaveBtn type="submit">저장</SaveBtn>
-            </Box2>
+            </Box>
           </Form>
         </Container2>
       </Container>

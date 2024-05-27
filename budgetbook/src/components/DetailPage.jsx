@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
-// import { useState } from 'react';
-import { useContext, useRef } from 'react';
-import { FamilyContext } from '../context/FamilyContext';
+import { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setItemList } from '../store/slices/budgetSlice';
 
 const Container = styled.div`
   max-width: 800px;
@@ -23,16 +23,17 @@ const Container2 = styled.section`
 const Box = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 
   padding: 20px 0;
+  width: 750px;
+  margin: 0 auto;
 `;
 
 const Input = styled.input`
   display: flex;
   border: 1px solid rgb(221, 221, 221);
   border-radius: 4px;
-  width: 770px;
+  width: 750px;
   height: 38px;
 
   margin: 0 auto;
@@ -55,7 +56,6 @@ const BtnBox = styled.div`
 
 const EditBtn = styled.button`
   display: flex;
-  /* flex-direction: row; */
   justify-content: center;
   align-items: center;
 
@@ -65,11 +65,14 @@ const EditBtn = styled.button`
 
   background-color: rgb(0, 123, 255);
   color: rgb(255, 255, 255);
+  cursor: pointer;
+  &:hover {
+    background-color: rgb(40, 144, 255);
+  }
 `;
 
 const DelBtn = styled.button`
   display: flex;
-  /* flex-direction: row; */
   justify-content: center;
   align-items: center;
 
@@ -79,11 +82,15 @@ const DelBtn = styled.button`
 
   background-color: rgb(255, 77, 77);
   color: rgb(255, 255, 255);
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(255, 96, 96);
+  }
 `;
 
 const BackBtn = styled.button`
   display: flex;
-  /* flex-direction: row; */
   justify-content: center;
   align-items: center;
 
@@ -92,10 +99,17 @@ const BackBtn = styled.button`
   border-radius: 4px;
   background-color: rgb(108, 117, 125);
   color: rgb(255, 255, 255);
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(122, 128, 133);
+  }
 `;
 
 const DetailPage = () => {
-  const { itemList, setItemList } = useContext(FamilyContext);
+  const dispatch = useDispatch();
+  const itemList = useSelector((state) => state.budget.itemList);
+
   const { detailId } = useParams();
 
   const dateRef = useRef(null);
@@ -119,9 +133,11 @@ const DetailPage = () => {
       id: detailId,
     };
 
-    setItemList((prev) =>
-      prev.map((item) => (item.id === detailId ? editInput : item))
+    const updated = itemList.map((item) =>
+      item.id === detailId ? editInput : item
     );
+
+    dispatch(setItemList(updated));
     navigate('/');
   }
   function delClickBtn() {
@@ -129,7 +145,7 @@ const DetailPage = () => {
       const delFilter = itemList.filter((item) => {
         return item.id !== detailId;
       });
-      setItemList(delFilter);
+      dispatch(setItemList(delFilter));
       navigate('/');
     }
   }
@@ -176,7 +192,6 @@ const DetailPage = () => {
             placeholder="지출 내용"
             defaultValue={filterId.description}
             ref={descriptionRef}
-            // value={descriptionValue}
           />
         </Box>
 

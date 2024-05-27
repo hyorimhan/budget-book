@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import { FamilyContext } from '../context/FamilyContext';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
   max-width: 800px;
@@ -32,6 +31,10 @@ const Box = styled.div`
   height: 65px;
   padding: 20px;
   margin-top: 10px;
+
+  &:hover {
+    background-color: #2ec4b6;
+  }
 `;
 
 const Box2 = styled.div`
@@ -40,18 +43,24 @@ const Box2 = styled.div`
 `;
 
 const Span = styled.span`
-  display: flex;
+  display: inline-block;
   margin: 10px;
   color: black;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 // 인풋값 가져와서 맞는 달에 뿌리기
 
 const InputList = () => {
-  const { itemList, saveMonth } = useContext(FamilyContext);
+  // const { itemList, saveMonth } = useContext(BudgetContext);
+
+  const itemList = useSelector((state) => state.budget.itemList);
+  const saveMonth = useSelector((state) => state.budget.saveMonth);
 
   const filterList = itemList.filter((item) => {
-    const date = parseInt(item.date.slice(6, 7));
+    const date = Number(item.date.slice(6, 7));
     return date === saveMonth;
   });
 
@@ -69,10 +78,10 @@ const InputList = () => {
                 <Box2>
                   <Span>{item.date}</Span>
                   <Span>항목: {item.item}</Span>
+                  <Span>금액: {item.amount}원</Span>
                 </Box2>
                 <Box2>
                   <Span>내용: {item.description}</Span>
-                  <Span>금액: {item.amount}원</Span>
                 </Box2>
               </Box>
             </Link>
