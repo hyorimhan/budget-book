@@ -34,6 +34,7 @@ const Box = styled.div`
 
   &:hover {
     background-color: #2ec4b6;
+    /* color: white; */
   }
 `;
 

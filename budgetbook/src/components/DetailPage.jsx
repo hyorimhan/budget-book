@@ -117,7 +117,6 @@ const DetailPage = () => {
   const amountRef = useRef(null);
   const descriptionRef = useRef(null);
 
-  console.log(dateRef);
   const navigate = useNavigate();
 
   const filterId = itemList.find((item) => {
@@ -132,11 +131,9 @@ const DetailPage = () => {
       description: descriptionRef.current.value,
       id: detailId,
     };
-
     const updated = itemList.map((item) =>
       item.id === detailId ? editInput : item
     );
-
     dispatch(setItemList(updated));
     navigate('/');
   }

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  saveMonth: 5,
+  saveMonth: Number(localStorage.getItem('month')),
   itemList: [],
 };
 export const budgetSlice = createSlice({
